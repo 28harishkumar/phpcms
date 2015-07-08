@@ -1,35 +1,105 @@
 <?php
+/**
+ * @author Harish Kumar
+ * @copyright Find All Together
+ * @link http://www.findalltogeher.com
+ * @version 1.0
+ * This is base template controller file. 
+ * The purpose of this file is to provide php functions to the template files
+ * This file contains helpers for template files.
+ * All CMS template management related functions will be here.
+ */
+
 require_once('Base.php');
 class TemplateFunctions extends Base{
-	//All CMS template management related functions will be here.
-	private $template_name='default';
+	
+	// default theme
+	private $template_name = null;
+	// hook for widgets
 	private $widget_positions=array();
-	function get_header()
+
+	/**
+	 * initialize template
+	 */
+	function __construct()
 	{
-		require_once($this->get_current_template_path().'header.php');
+		if($this->template_name == null)
+		{
+			$this->template_name = $this->get_current_template();
+		}
 	}
 
-	function get_footer()
+	/**
+	 * run whole CMS and render generated html page
+	 */
+	function run($arg = null, $param = null)
 	{
-		require_once($this->get_current_template_path().'footer.php');
+		require_once(TEMPLATE_PATH.'functions.php');
+		require_once(TEMPLATE_PATH.'index.php');
 	}
 
-	function show()
+	/**
+	 * set a template
+	 */
+	function set_template($template_name)
 	{
-		require_once($this->get_current_template_path().'functions.php');
-		require_once($this->get_current_template_path().'index.php');
+		$this->template_name=$template_name;
 	}
 
+	/**
+	 * get currently active template
+	 */
+	private function get_current_template()
+	{
+		if(isset($_GET['preview']) && isset($_GET['theme']) && $_SESSION['user_session']['role'] !== 'user')
+    	{
+    		define('PREVIEW',true);
+    		return $_GET['theme'];
+    	}	
+		$db=$this->get_dbo();
+		$sql="SELECT `option_value` FROM `option` WHERE option_name = ?";
+		$template_name= $db->load_single_result($sql,array('theme'));		
+		if($template_name)
+		{			
+			return $template_name['option_value'];			
+		}
+		return 'default';
+	}
+
+	/**
+	* return current theme name
+	* @return string $this->template_name
+	*/
+	function get_current_theme()
+	{
+		return $this->template_name;
+	}
+
+	/**
+	 * return currently active template path
+	 * it is relative path to root index.php
+	 * @return string template_path
+	 */
 	function get_current_template_path()
 	{
 		return 'templates/'.$this->template_name.'/';
 	}
 
+	/**
+	 * return static media path in template path
+	 * it is absolute path
+	 * @return string template_path
+	 */
 	function get_static_path()
 	{
-		return ROOT.'/'.$this->get_current_template_path();
+		return ROOT.'/'.TEMPLATE_PATH;
 	}
 	
+	/**
+	 * action for app output
+	 * resoulve app name and requested function from url
+	 * then run application class for generating output
+	 */
 	function app_output()
 	{
 		// Route class instance
@@ -45,11 +115,9 @@ class TemplateFunctions extends Base{
 		$app->run($app_name[1],$destination['args']);
 	}
 
-	function set_template($templateName)
-	{
-		$this->templateName=$templateName;
-	}
-
+	/**
+	 * take output from widget
+	 */
 	function widget_output($position='default')
 	{
 		if(!empty($this->widget_positions[$position]))
@@ -67,6 +135,9 @@ class TemplateFunctions extends Base{
 		}
 	}
 
+	/**
+	 * regiseter widgets for theme
+	 */
 	function set_widget($position,$widget_name,$params=array())
 	{
 		$widget=new StdClass;
@@ -82,5 +153,29 @@ class TemplateFunctions extends Base{
 		{
 			array_push($this->widget_positions[$position],$widget);
 		}		
+	}
+
+	/**
+	 * return header.php file from current template
+	 */
+	function get_header()
+	{
+		require_once(TEMPLATE_PATH.'header.php');
+	}
+
+	/**
+	 * return footer.php file from current template
+	 */
+	function get_footer()
+	{
+		require_once(TEMPLATE_PATH.'footer.php');
+	}
+
+	/**
+	 * return sidebar.php file from current template
+	 */
+	function get_sidebar()
+	{
+		require_once(TEMPLATE_PATH.'sidebar.php');
 	}
 }

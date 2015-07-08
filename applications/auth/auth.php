@@ -9,17 +9,8 @@
  */
 
 require_once('includes/Application.php');
-require_once('includes/TemplateFunctions.php');
 
 class AuthApplication extends Application{
-	/**
-	 * defining an instance for TemplateFunction class
-	 */
-	function __construct()
-	{
-		if(!isset($this->temp))
-			$this->temp = new TemplateFunctions();
-	}
 
 	/**
 	 * default function that will run if no operation is choosen
@@ -52,11 +43,14 @@ class AuthApplication extends Application{
 	function login_form()
 	{
 		$this->check_login();
-		require_once($this->temp->get_current_template_path().'auth/auth.php');
+		require_once(TEMPLATE_PATH.'auth/auth.php');
 	}
 
 	/**
 	 * login user
+	 * @param string $email
+	 * @param string $password
+	 * @return redirect
 	 */
 	private function login($email,$password)
 	{
@@ -64,12 +58,11 @@ class AuthApplication extends Application{
 		$email = $db->quote($email);
 		$password = crypt($password,sprintf('$6$rounds=%d$%s$',10000,SECRET));
 
-		$sql = "SELECT * FROM users WHERE email=? AND password=? AND is_active = 1";
+		$sql = "SELECT * FROM `users` WHERE email=? AND password=? AND is_active = 1";
 		$query = $db->load_single_result($sql,array($email,$password));
 
 		if(isset($query['id']))
 		{
-			session_start();
 			$_SESSION['user_session'] = $query;
 			if(isset($_SESSION['user_session']))
 			{
@@ -105,7 +98,6 @@ class AuthApplication extends Application{
 	 */
 	private function logout()
 	{
-		session_start();
 		if(isset($_SESSION['user_session']) && $_SESSION['user_session'])
 		{
 			session_destroy();
@@ -123,6 +115,8 @@ class AuthApplication extends Application{
 
 	/**
 	 * returns user information
+	 * @param string $email
+	 * @return query $query
 	 */
 	private function get_user_info($email)
 	{
@@ -133,6 +127,8 @@ class AuthApplication extends Application{
 
 	/**
 	 * send error if any exists during registeration
+	 * @param staring $error_code
+	 * @return redirect
 	 */
 	private function error_info($error_code = null){
 		switch ($error_code) {
@@ -160,9 +156,12 @@ class AuthApplication extends Application{
 		$url = $this->to_url('signup-form');
 		$this->redirect($url);
 	}
-	
+
 	/**
 	 * register new user
+	 * @param string $email
+	 * @param string $password
+	 * @return int $count
 	 */
 	private function register($email,$password)
 	{
@@ -174,9 +173,13 @@ class AuthApplication extends Application{
 		}
 		$password = crypt($password,sprintf('$6$rounds=%d$%s$',10000,SECRET));
 		$code = hash('sha512', 'register'.$email.''.time());
+		$created_at = new DateTime();
+		$created_at = $created_at->format('Y-m-d H:i:s');
+		$updated_at = new DateTime();
+		$updated_at = $updated_at->format('Y-m-d H:i:s');
 
-		$sql = "INSERT INTO users (email,password,confirm_code) VALUES(?,?,?)";
-		$query = $db->prepare($sql,array($eml,$password,$code));
+		$sql = "INSERT INTO `users` (email,password,confirm_code,created_at,updated_at) VALUES(?,?,?,?,?)";
+		$query = $db->prepare($sql,array($eml,$password,$code,$created_at,$updated_at));
 		$count = $query->rowCount();
 		if($count)
 		{
@@ -187,6 +190,10 @@ class AuthApplication extends Application{
 
 	/**
 	 * prepare verification email for registering user
+	 * @param string $title
+	 * @param string $link
+	 * @param string $message
+	 * @return string(html) $body
 	 */
 	private function email_message($title,$link,$message)
 	{
@@ -205,6 +212,8 @@ class AuthApplication extends Application{
 	/**
 	 * send email to registered user
 	 * config your init.php for working this function
+	 * @param string $email
+	 * @param string $code
 	 */
 	private function send_register_email($email,$code)
 	{
@@ -248,7 +257,7 @@ class AuthApplication extends Application{
 		{
 			$message = 'You have register succesfully. Now open your email id and click on the confirmation link';
 			$heading = 'Success';		
-			require($this->temp->get_current_template_path().'auth/message.php');
+			require(TEMPLATE_PATH.'auth/message.php');
 		}
 		else
 		{
@@ -258,6 +267,9 @@ class AuthApplication extends Application{
 
 	/**
 	 * match the confirmation code in link for verifying registered email
+	 * @param array $args
+	 * @param string $args['code']
+	 * @param staring $args['email']
 	 */ 
 	function verify_email($args)
 	{
@@ -275,8 +287,10 @@ class AuthApplication extends Application{
 		$query = null;
 		if($data['confirm_code']==$code && $code != '0')
 		{
-			$sql = "UPDATE users as user SET user.is_active='1', user.confirm_code='0' WHERE user.email= ?";
-			$query = $db->prepare($sql,array($email));
+			$updated_at = new DateTime();
+			$updated_at = $updated_at->format('Y-m-d H:i:s');
+			$sql = "UPDATE `users` as user SET user.is_active='1', user.confirm_code='0', user.updated_at=? WHERE user.email= ?";
+			$query = $db->prepare($sql,array($updated_at,$email));
 		}
 		else
 		{
@@ -285,7 +299,6 @@ class AuthApplication extends Application{
 
 		if($query->rowCount())
 		{
-			session_start();
 			$_SESSION['user_session'] = $data;
 		}
 		$this->redirect();
@@ -293,6 +306,7 @@ class AuthApplication extends Application{
 
 	/**
 	 * return reset password form
+	 * @return HTMLResponse
 	 */
 	function forget_password()
 	{
@@ -306,8 +320,10 @@ class AuthApplication extends Application{
 		$code = hash('sha512','forget$kfsdgf8dsfds'.$email.''.time());
 		$db=$this->get_dbo();
 		$eml = $db->quote($email);
-		$sql = "UPDATE users SET confirm_code= '$code' WHERE email= ?";
-		$query = $db->prepare($sql,array($eml));
+		$updated_at = new DateTime();
+		$updated_at = $updated_at->format('Y-m-d H:i:s');
+		$sql = "UPDATE `users` SET confirm_code= '$code', updated_at=? WHERE email= ?";
+		$query = $db->prepare($sql,array($updated_at,$eml));
 		if($query->rowCount())
 		{
 			$this->send_reset_email($code,$email);
@@ -319,11 +335,13 @@ class AuthApplication extends Application{
 			$message = 'You have provide invalid email address';
 			$heading = 'Error';
 		}
-		require($this->temp->get_current_template_path().'auth/message.php');
+		require(TEMPLATE_PATH.'auth/message.php');
 	}
 
 	/**
 	 * emails reset password link
+	 * @param string $code
+	 * @param string $email
 	 */
 	private function send_reset_email($code,$email)
 	{
@@ -341,6 +359,9 @@ class AuthApplication extends Application{
 
 	/**
 	 * send reset password form
+	 * @param array $args
+	 * @param string $args['code']
+	 * @param string $args['email']
 	 */
 	function reset_password_form($args)
 	{
@@ -361,11 +382,12 @@ class AuthApplication extends Application{
 			$this->redirect();
 		}
 
-		require($this->temp->get_current_template_path().'auth/resetpassword.php');
+		require(TEMPLATE_PATH.'auth/resetpassword.php');
 	}
 
 	/**
 	 * reset user password
+	 * @return HTMLResponse
 	 */
 	function reset_password()
 	{
@@ -375,7 +397,7 @@ class AuthApplication extends Application{
 			header('HTTP/1.1 403 Forbidden');
 			$heading = 'forbidden request!';
 			$message = 'all fields are required. Try again by clicking on link in email.';
-			require($this->temp->get_current_template_path().'auth/message.php');
+			require(TEMPLATE_PATH.'auth/message.php');
 			exit();
 		}
 
@@ -387,7 +409,7 @@ class AuthApplication extends Application{
 		if($pass2 !== $pass1)
 		{
 			$error = 'password mismatch';
-			require($this->temp->get_current_template_path().'auth/resetpassword.php');
+			require(TEMPLATE_PATH.'auth/resetpassword.php');
 			exit();
 		}
 
@@ -398,15 +420,17 @@ class AuthApplication extends Application{
 
 		if($data['confirm_code']==$code && $code != '0')
 		{
-			$sql = "UPDATE users as user SET user.confirm_code='0' WHERE user.email= ?";
-			$query = $db->prepare($sql,array($eml));
+			$updated_at = new DateTime();
+			$updated_at = $updated_at->format('Y-m-d H:i:s');
+			$sql = "UPDATE `users` as user SET user.confirm_code='0', user.updated_at=? WHERE user.email= ?";
+			$query = $db->prepare($sql,array($updated_at,$eml));
 		}
 		else
 		{
 			header('HTTP/1.1 403 Forbidden');
 			$heading = 'forbidden request!';
 			$message = 'Validation error. Try again by clicking on link in email.';
-			require($this->temp->get_current_template_path().'auth/message.php');
+			require(TEMPLATE_PATH.'auth/message.php');
 			exit();
 		}
 
@@ -415,8 +439,10 @@ class AuthApplication extends Application{
 			$pass1 = crypt($pass1,sprintf('$6$rounds=%d$%s$',10000,SECRET));
 			$db=$this->get_dbo();
 			$eml = $db->quote($email);
-			$sql = "UPDATE users SET confirm_code= '0', password = ? WHERE email= ?";
-			$query = $db->prepare($sql,array($pass1,$eml));
+			$updated_at = new DateTime();
+			$updated_at = $updated_at->format('Y-m-d H:i:s');
+			$sql = "UPDATE `users` SET confirm_code= '0', password = ?, updated_at=? WHERE email= ?";
+			$query = $db->prepare($sql,array($pass1,$eml,$updated_at));
 			if($query->rowCount())
 			{
 				$message = 'Your reset password has been reseted.';
@@ -433,7 +459,7 @@ class AuthApplication extends Application{
 			$message = 'You have provide invalid data';
 			$heading = 'Error';
 		}
-		require($this->temp->get_current_template_path().'auth/message.php');
+		require(TEMPLATE_PATH.'auth/message.php');
 	}
 }
 ?>

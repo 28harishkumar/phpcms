@@ -1,4 +1,13 @@
 <?php
+/**
+ * @author Harish Kumar
+ * @copyright Find All Together
+ * @link http://www.findalltogeher.com
+ * @version 1.0
+ * THis is base file
+ * Anything here will be accessible to all of the CMS. 
+ * Make sure everything here should be static and be using singlton design pattern
+ */
 if(!isset($security_check))
 {
 	echo "This is restricted directory";
@@ -7,9 +16,13 @@ if(!isset($security_check))
 
 require_once('libraries/core/database/'.$driver.'_database.php');
 require_once('libraries/core/http/routes.php');
-class Base{
-	//Anything here will be accessible to all of the CMS. 
-	//Make sure everything here should be static and be using singlton design pattern
+abstract class Base{
+
+	/**
+	 * create a instance of database class
+	 * Open a database commenction
+	 * @return instance $db_object MysqlDatabase
+	 */
 	public function get_dbo()
 	{
 		static $db_object = null;
@@ -20,9 +33,12 @@ class Base{
        return $db_object;
 	}
 	
+	/**
+	 * chcek if user is logged in
+	 * @return boolean
+	 */
 	protected function is_login()
 	{
-		session_start();
 		if(isset($_SESSION['user_session']))
 		{
 			return true;
@@ -30,6 +46,11 @@ class Base{
 		return false;
 	}
 
+	/**
+	 * get an instance of Route class
+	 * load all routes
+	 * @return instance $route Routes()
+	 */
 	public function get_routes()
 	{
 		static $routes = null;
@@ -40,6 +61,12 @@ class Base{
        return $routes;
 	}
 
+	/**
+	 * it is used for named urls
+	 * @param string $name
+	 * @param array $args
+	 * @return string url
+	 */
 	public function to_url($name, $args=null)
 	{
 		$r = $this->get_routes();
@@ -48,5 +75,10 @@ class Base{
 		else
 			return $r->to_route($name);
 	}
+
+	/**
+	 * abatract function run for executing applicaiton
+	 */
+	abstract function run($arg = null, $param = null);
 }
 ?>

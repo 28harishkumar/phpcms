@@ -4,6 +4,23 @@ body{
 	
 }
 
+.right{
+	float: right;
+}
+
+.left{
+	float: left;
+}
+
+.clear{
+	padding: 10px 0;
+	width:100%;
+}
+
+.delete-form{
+	float: left;
+}
+
 .header, .header a{
 	background-color:#345234;
 	color:white;	
@@ -13,19 +30,20 @@ body{
 	font-family: cursive;	
 	text-decoration: none;
 }
+
+.content{
+	float: right;
+	padding: 5px;
+	min-height: 500px;
+}
+
 .sidebar{
-	width: 12%;
-	min-width: 120px;
 	float:left;
+	min-width: 179px;
 	box-shadow: 5px 5px 5px #523454;
 	overflow:hidden;
 }
-.content{
-width: 85%;
-float: right;
-padding: 5px;
-min-height: 450px;
-}
+
 .footer{
 text-align: center;
 background: #345234;
@@ -46,6 +64,8 @@ padding: 21px 3px;
  */
 
 @media only screen and (max-width: 800px) {
+
+
 /* Force table to not be like tables anymore */
 #no-more-tables table,
 #no-more-tables thead,

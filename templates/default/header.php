@@ -13,9 +13,9 @@
 <head>
 	<title>MyCMS from screech</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link type='text/css' rel='stylesheet' href='<?php echo $this->get_static_path();?>css/bootstrap.min.css' /> 
-	<link type='text/css' rel='stylesheet' href='<?php echo $this->get_static_path();?>css/style.css' />
-	<script type="text/javascript" src="<?php echo $this->get_static_path();?>js/jquery-2.1.1.min.js"></script>
+	<link type='text/css' rel='stylesheet' href='<?php echo STATIC_PATH;?>css/bootstrap.min.css' /> 
+	<link type='text/css' rel='stylesheet' href='<?php echo STATIC_PATH;?>css/style.css' />
+	<script type="text/javascript" src="<?php echo STATIC_PATH;?>js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
 <div  class="hfeed site">
@@ -26,7 +26,4 @@
 			</div><!-- .site-branding -->
 		</header><!-- .site-header -->
 	</div><!-- .header -->
-	<div class="sidebar col-sm-2">
-		<?php $this->widget_output('sidebar_position');?>
-	</div>
-	<div class="container-fluid col-sm-10">
+	<div class="container-fluid">

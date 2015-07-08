@@ -1,8 +1,12 @@
 <?php
 /**
-* This class handles the routes comming from browsers
-* These routes are permalink routes
-*/
+ * @author Harish Kumar
+ * @copyright Find All Together
+ * @link http://www.findalltogeher.com
+ * @version 1.0
+ * This class handles the routes comming from browsers
+ * These routes are permalink routes
+ */
 class Route
 {
 	private $config;
@@ -27,7 +31,7 @@ class Route
 	 */
 	private function get_url()
 	{
-		$trimed = trim($_SERVER['REQUEST_URI'],'/');
+		$trimed = trim(split('\?',$_SERVER['REQUEST_URI'])[0],'/');
 		$url = split('/',$trimed);
 
 		$number_of_folders = count(split('/', ROOT))-3;
@@ -71,13 +75,14 @@ class Route
 	private function check_regex()
 	{
 		$url = $this->get_url();
-		foreach ($this->routes as $regex => $url_meta) {
+		foreach ($this->routes as $route => $url_meta) {
 			
 			// filter the regex string
-			$filtered_regex = $this->filter_regex($regex);
+			$filtered_regex = $this->filter_regex($route);
 
 			// matich regex
-			if(preg_match('#^'.$filtered_regex['regex'].'$#',$url, $matches, PREG_OFFSET_CAPTURE))
+			preg_match('#^'.$filtered_regex['regex'].'$#',$url, $matches, PREG_OFFSET_CAPTURE);
+			if(!empty($matches))
 			{
 				$args = array();
 				if(!empty($filtered_regex['args']))
@@ -89,15 +94,26 @@ class Route
 					}
 				}
 				if(is_array($url_meta))
+				{
 					$control = $url_meta['control'];
+					if( array_search($_SERVER['REQUEST_METHOD'],$url_meta['allow']) === false)
+					{
+						return false;
+					}	
+				}		
 				else
 					$control = $url_meta;
+
 				return ['control' => $control,'args' => $args];
 			}
 		}
 		return false;
 	}
 
+	/**
+	 * find right app class and its funciton
+	 * @return array $destination
+	 */
 	function get_destination()
 	{
 		$destination = $this->check_regex();
@@ -105,7 +121,8 @@ class Route
 		{
 			return $destination;
 		}
-
+		header('HTTP/1.1 404 Page not found');
+		exit;
 	}
 
 	/**
@@ -129,6 +146,7 @@ class Route
 
 	/**
 	 * return a named url
+	 * @return string url
 	 */
 	public function to_route($name,$args = null)
 	{

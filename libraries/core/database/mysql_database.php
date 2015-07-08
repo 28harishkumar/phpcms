@@ -74,6 +74,8 @@ class MysqlDatabase
 
 	/**
 	 * quoting string
+	 * @param array $args
+	 * @return sting $args
 	 */
 	function quote($arg)
 	{
@@ -85,6 +87,9 @@ class MysqlDatabase
 
 	/**
 	 * prepare statement for single fetch
+	 * @param string $sql
+	 * @param array $args
+	 * @return query $q
 	 */
 	function prepare($sql,$args)
 	{
@@ -97,6 +102,9 @@ class MysqlDatabase
 
 	/**
 	 * Return array of results
+	 * @param string $sql
+	 * @param array $args
+	 * @return query array $rows
 	 */
 	function load_result($sql,$args)
 	{
@@ -110,6 +118,9 @@ class MysqlDatabase
 
 	/**
 	 * Return single result
+	 * @param string $sql
+	 * @param array $args
+	 * @return query $row
 	 */
 	function load_single_result($sql,$args)
 	{

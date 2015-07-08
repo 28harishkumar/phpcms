@@ -8,6 +8,5 @@
  * @link http://www.findalltogeher.com
  * @version 1.0
  */
+$this->set_widget('nav_position','nav');
 $this->set_widget('logo_position','logo');
-$this->set_widget('sidebar_position','sidemenu');
-$this->set_widget('sidebar_position','sidemenu2');

@@ -1,6 +1,16 @@
 <?php
+/**
+ * @author Harish Kumar
+ * @copyright Find All Together
+ * @link http://www.findalltogeher.com
+ * @version 1.0
+ * This is base template controller file. 
+ * The purpose of this file is to provide php functions to the template files
+ * This file contains helpers for template files.
+ * All CMS template management related functions will be here.
+ */
 require_once('Base.php');
-class Widget extends Base{
+abstract class Widget extends Base{
 	private $widget_path='';
 	private $widget_name='';
 	private $parameters=array();
@@ -16,12 +26,9 @@ class Widget extends Base{
 		return $this->widget_path;
 	}
 
-	function display()
-	{
-		echo 'this will be default output of widget if this function is not overrided by derived class';
-	}
+	abstract function display();
 
-	function run($widget_name,$params)// this function will be called by template function class to display widget
+	function run($widget_name = null,$params = null)// this function will be called by template function class to display widget
 	{
 		$this->parameters=$params;
 		$this->set_widget_path($widget_name);

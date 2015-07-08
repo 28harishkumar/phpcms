@@ -13,7 +13,7 @@
             </div>
             <?php } ?>                
                 <form id="loginform" class="form-horizontal" role="form" action="<?php echo $this->to_url('login');?>" method="post">
-                    <input type="hidden" name="csrf_token" value="<?php echo CSRF; ?>">       
+                    <input type="hidden" name="csrf_token" value="<?php echo CSRF; ?>">    
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input required="required" id="login-email" type="email" class="form-control" name="login-email" value="" placeholder="email">                                        
@@ -53,14 +53,6 @@
         <div class="panel-body" >
             <form id="signupform" class="form-horizontal" role="form" method="post" action="<?php echo $this->to_url('register'); ?>">                    
                 <input type="hidden" name="csrf_token" value="<?php echo CSRF; ?>">
-                <?php if(isset($_SESSION['error'])){ ?>
-                <div id="signupalert" class="alert alert-danger">
-                    <p>Error:</p>
-                    <?php echo "<span>".$_SESSION['error']."</span>";
-                    unset($_SESSION['error']);
-                    ?>
-                </div>
-                <?php } ?>
                 <div class="form-group">
                     <label for="email" class="col-md-3 control-label">Email</label>
                     <div class="col-md-9">
