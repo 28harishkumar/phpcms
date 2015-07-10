@@ -113,3 +113,9 @@ Label the data
 */
 #no-more-tables td:before { content: attr(data-title); }
 }
+
+@media only screen and (max-width: 768px) {
+	.sidebar{
+		float: none;
+	}
+}

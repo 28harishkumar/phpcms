@@ -2,6 +2,7 @@
 <div class="page-header">
 	<h1>Themes</h1>
 	<p>Change your theme from here! NOTE: Theme can be activated by only admin. If you are looking demo then use live preview</p>
+	<a href="<?php echo  $this->to_url('admin-home');?>">Back to admin panel</a>
 </div>
 <h3>Currently active theme</h3>
 <div class="themes row">

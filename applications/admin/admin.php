@@ -49,7 +49,7 @@ class AdminApplication extends Application{
 	 */
 	function index()
 	{
-		
+		require_once(TEMPLATE_PATH.'/admin/index.php');
 	}
 
 	/**

@@ -20,6 +20,8 @@ return [
 				'name' => 'live-preview', 
 				'control' => 'admin@preview',
 				'allow' => ['GET','POST']],
+	/*
+	 these disable links are port for next versionq
 
 	'admin/widget' => [
 				'name' => 'widget-settings', 
@@ -61,11 +63,6 @@ return [
 				'control' =>'admin@manage_menu',
 				'allow' => ['POST']],
 
-	'admin/users' => [
-				'name' => 'admin-user-list', 
-				'control' =>'admin@admin_user_list',
-				'allow' => ['GET']],
-
 	'admin/users/new' => [
 				'name' => 'admin-new-user', 
 				'control' =>'admin@admin_new_user',
@@ -75,6 +72,13 @@ return [
 				'name' => 'admin-add-user', 
 				'control' =>'admin@admin_add_user',
 				'allow' => ['POST']],
+
+	*/
+
+	'admin/users' => [
+				'name' => 'admin-user-list', 
+				'control' =>'admin@admin_user_list',
+				'allow' => ['GET']],
 
 	'admin/user/{id}[0-9]+/edit' => [
 				'name' => 'admin-edit-user', 
@@ -91,17 +95,3 @@ return [
 				'control' =>'admin@admin_delete_user',
 				'allow' => ['POST']],
 ];
-
-/*
-work of admin
-1) change theme
-	- live preview
-	- live customerize
-2) set widgets
-	- drag and drop
-3) list of users
-	- add, edit, delete
-4) handle menus
-	- add, edit and delete menus
-	- map menu with positions
-*/
