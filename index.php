@@ -1,7 +1,7 @@
 <?php
 
-if (!ini_get('display_errors')) {
-    ini_set('display_errors', '1');
+if (ini_get('display_errors')) {
+    ini_set('display_errors', '0');
 }
 
 $security_check = 1;
