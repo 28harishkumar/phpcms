@@ -7,6 +7,14 @@
  * This class handles the routes comming from browsers
  * These routes are permalink routes
  */
+
+// security check
+if(!isset($security_check))
+{
+	echo "This is restricted file";
+	exit();
+}
+
 class Route
 {
 	private $config;

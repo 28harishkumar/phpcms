@@ -24,11 +24,10 @@ return [
 'apps' => [
 			'auth',
 			'todo',
+			'admin',
 		],
 
 // secret string for encreption
 'secret' => 'this_is_secret_string', // example 'fa&k+j@sdf!has^dh-iu!d#dh$sd'
 
-// encreption type
-'encreption' => ''
 ];

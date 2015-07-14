@@ -74,7 +74,7 @@ class MysqlDatabase
 
 	/**
 	 * quoting string
-	 * @param array $args
+	 * @param string $args
 	 * @return sting $args
 	 */
 	function quote($arg)
