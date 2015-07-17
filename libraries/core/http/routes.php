@@ -17,7 +17,6 @@ if(!isset($security_check))
 
 class Route
 {
-	private $config;
 	private $routes;
 
 	/**
@@ -54,17 +53,17 @@ class Route
 	/**
 	 * filter parameters from url's regex
 	 * @param string $regex
-	 * @return array (string $regex) (array parameters)
+	 * @return array (string $regex) (array $args) (array $arg_pos)
 	 */
 	private function filter_regex($regex)
 	{
-		// untill there is a dynamic parameter in url
 		$args = array();
 		$arg_pos = array();
 		$regex_array = split('/',$regex);
 		
 		foreach ($regex_array as $pos => $r) 
 		{
+			// if there is a dynamic parameter in url
 			if (strpos($r,'{') !== false) 
 			{
 		    	$perm = substr($r,strpos($r,'{')+1,strpos($r,'}')-strpos($r,'{')-1);
@@ -92,15 +91,6 @@ class Route
 			preg_match('#^'.$filtered_regex['regex'].'$#',$url, $matches, PREG_OFFSET_CAPTURE);
 			if(!empty($matches))
 			{
-				$args = array();
-				if(!empty($filtered_regex['args']))
-				{
-					$url_split = split('/', $url);
-					$pos = 0;
-					foreach ($filtered_regex['args'] as $arg) {
-						$args[$arg] = $url_split[$filtered_regex['arg_pos'][$pos++]];
-					}
-				}
 				if(is_array($url_meta))
 				{
 					$control = $url_meta['control'];
@@ -111,6 +101,16 @@ class Route
 				}		
 				else
 					$control = $url_meta;
+
+				$args = array();
+				if(!empty($filtered_regex['args']))
+				{
+					$url_split = split('/', $url);
+					$pos = 0;
+					foreach ($filtered_regex['args'] as $arg) {
+						$args[$arg] = $url_split[$filtered_regex['arg_pos'][$pos++]];
+					}
+				}
 
 				return ['control' => $control,'args' => $args];
 			}
