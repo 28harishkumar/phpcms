@@ -223,7 +223,8 @@ class AuthApplication extends Application{
 		$title = 'Confirm email for registeration';
 		$message = 'Confirm Email';
 		$txt = $this->email_message($title,$link,$message);
-		$headers = "From: webmaster@example.com" . "\r\n" .
+		$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+		$headers .= "From: webmaster@example.com" . "\r\n" .
 		"CC: somebodyelse@example.com";
 
 		mail($email,$subject,$txt,$headers);
