@@ -23,7 +23,7 @@ abstract class Base{
 	 * Open a database commenction
 	 * @return instance $db_object MysqlDatabase
 	 */
-	public function get_dbo()
+	protected function get_dbo()
 	{
 		static $db_object = null;
         if (null === $db_object) {
@@ -51,7 +51,7 @@ abstract class Base{
 	 * load all routes
 	 * @return instance $route Routes()
 	 */
-	public function get_routes()
+	protected function get_routes()
 	{
 		static $routes = null;
         if (null === $routes) {
@@ -67,7 +67,7 @@ abstract class Base{
 	 * @param array $args
 	 * @return string url
 	 */
-	public function to_url($name, $args=null)
+	protected function to_url($name, $args=null)
 	{
 		$r = $this->get_routes();
 		if($args!==null)
