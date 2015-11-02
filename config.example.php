@@ -18,7 +18,7 @@ return [
 			],
 
 // set the location of application withour trailing slash
-'root' => '' // example 'http://localhost/todolist' or http://demo.findalltogeher.com
+'root' => '', // example 'http://localhost/todolist' or http://demo.findalltogeher.com
 
 // register apps
 'apps' => [
