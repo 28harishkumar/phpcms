@@ -100,7 +100,7 @@ class AdminApplication extends Application
 
     $theme = $this->theme_validator();
     $db = $this->get_dbo();
-    $sql = "UPDATE `option` SET `option_value` = ? WHERE  option_name = 'theme'";
+    $sql = "UPDATE `site_option` SET `option_value` = ? WHERE  option_name = 'theme'";
     if ($db->prepare($sql, array($theme))->rowCount()) {
       $_SESSION['success'] = 'theme is updated';
       $this->redirect($this->to_url('theme-settings'));

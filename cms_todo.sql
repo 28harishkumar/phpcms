@@ -23,20 +23,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `option`
+-- Table structure for table `site_option`
 --
 
-CREATE TABLE IF NOT EXISTS `option` (
+CREATE TABLE IF NOT EXISTS `site_option` (
 `id` int(11) NOT NULL,
   `option_name` varchar(250) NOT NULL,
   `option_value` varchar(250) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `option`
+-- Dumping data for table `site_option`
 --
 
-INSERT INTO `option` (`id`, `option_name`, `option_value`) VALUES
+INSERT INTO `site_option` (`id`, `option_name`, `option_value`) VALUES
 (1, 'theme', 'fixed_top');
 
 -- --------------------------------------------------------
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 -- Indexes for table `option`
 --
-ALTER TABLE `option`
+ALTER TABLE `site_option`
  ADD PRIMARY KEY (`id`);
 
 --
@@ -103,7 +103,7 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for table `option`
 --
-ALTER TABLE `option`
+ALTER TABLE `site_option`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `todolist`

@@ -57,7 +57,7 @@ class TemplateFunctions extends Base
       return $_GET['theme'];
     }
     $db = $this->get_dbo();
-    $sql = "SELECT `option_value` FROM `option` WHERE option_name = ?";
+    $sql = "SELECT `option_value` FROM `site_option` WHERE option_name = ?";
     $template_name = $db->load_single_result($sql, array('theme'));
     if ($template_name) {
       return $template_name['option_value'];
