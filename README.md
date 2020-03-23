@@ -16,7 +16,8 @@ Contact [Harish](https://www.facebook.com/profile.php?id=100003606204068) for mo
 Installation
 -------
 
-The frontend is developed [Bootstrap](http://getbootstrap.com/). If you wish to test it out, install xampp and fork the repository to `~\xampp\htdocs`. 
+The frontend is developed [Bootstrap](http://getbootstrap.com/). 
+If you wish to test it out, install xampp and fork the repository to `~\xampp\htdocs` for windows and `/var/www/html/` in linux. 
 
 * Change config.example.php to config.php and set required config as mention in file.
 * Import sql file
@@ -25,11 +26,11 @@ The frontend is developed [Bootstrap](http://getbootstrap.com/). If you wish to 
 tutorials
 ------------
 
-I am creating this cms as well as tutorial for this cms. The tutorials will be uploaded on my blogging webiste [Find All Together](http://www.findalltogether.com/wp/tag/create-cms/) . Old version is here [Learn how to built a cms step by step](http://www.findalltogether.com/wp/tag/create-cms/). New version is coming soon.
+I am creating this cms as well as tutorial for this cms. The tutorials will be uploaded on my blogging webiste [Find All Together](https://www.flowkl.com/tutorial/web-development/learn-building-cms-from-scratch-with-todo-list-demo-in-php-and-mysql/) .
 
 Demo
 ------------
-The simple demo of this project is live on [http://todo.findalltogether.com](http://todo.findalltogether.com). NOTE: It will be activated on 12th July 2015.
+The simple demo of this project is live on [https://todo.flowkl.com](https://todo.flowkl.com).
 
 Contributing
 ------------
