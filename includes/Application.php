@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Harish Kumar
  * @copyright Flowkl
@@ -9,52 +10,47 @@
  */
 
 require_once('Base.php');
-abstract class Application extends Base{
-	
-	/**
-	 * executing an applicaition
-	 */
-	function run($method = 'default',$args = null)
-	{
-		if(!empty($args))
-		{
-			$this->$method($args);
-		}	
-		else{
-			$this->$method();
-		}
-	}
+abstract class Application extends Base
+{
 
-	/**
-	 * default response to user for any request
-	 * 
-	 */
-	abstract function display();
+  /**
+   * executing an applicaition
+   */
+  function run($method = 'default', $args = null)
+  {
+    if (!empty($args)) {
+      $this->$method($args);
+    } else {
+      $this->$method();
+    }
+  }
 
-	/**
-	 * redirect function for application
-	 */
-	protected function redirect($url=null,$msg=null)
-	{
-		if(empty($url))
-		{
-			header('Location:'.ROOT);
-		}
-		else
-		{
-			header('Location:'.$url);
-		}
-		exit(0);
-	}
+  /**
+   * default response to user for any request
+   * 
+   */
+  abstract function display();
 
-	/**
-	 * protect application with logged in required layer
-	 */
-	protected function login_required()
-	{
-		if(!isset($_SESSION['user_session']))
-		{
-			$this->redirect($this->to_url('login-form'));
-		}
-	}
+  /**
+   * redirect function for application
+   */
+  protected function redirect($url = null, $msg = null)
+  {
+    if (empty($url)) {
+      header('Location:' . ROOT);
+    } else {
+      header('Location:' . $url);
+    }
+    exit(0);
+  }
+
+  /**
+   * protect application with logged in required layer
+   */
+  protected function login_required()
+  {
+    if (!isset($_SESSION['user_session'])) {
+      $this->redirect($this->to_url('login-form'));
+    }
+  }
 }

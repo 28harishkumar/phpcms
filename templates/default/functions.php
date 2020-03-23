@@ -5,7 +5,7 @@
  * This file is for registering widgets to the theme
  * This file can change core settings
  * @author Harish Kumar
- * @copyright Flowkl | Programming and web development
+ * @copyright Flowkl 
  * @link https://www.flowkl.com
  * @version 1.0
  */

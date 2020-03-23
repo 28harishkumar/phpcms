@@ -4,7 +4,7 @@
  * This is header of the default theme. 
  * THis header contains logo, main menu and search box in the top section of the web page.
  * @author Harish Kumar
- * @copyright Flowkl | Programming and web development
+ * @copyright Flowkl 
  * @link https://www.flowkl.com
  * @version 1.0
  */

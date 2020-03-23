@@ -14,7 +14,6 @@
 require_once('Base.php');
 class TemplateFunctions extends Base
 {
-
   // default theme
   private $template_name = null;
   // hook for widgets
@@ -56,12 +55,15 @@ class TemplateFunctions extends Base
       define('PREVIEW', true);
       return $_GET['theme'];
     }
+
     $db = $this->get_dbo();
     $sql = "SELECT `option_value` FROM `site_option` WHERE option_name = ?";
     $template_name = $db->load_single_result($sql, array('theme'));
+
     if ($template_name) {
       return $template_name['option_value'];
     }
+
     return 'default';
   }
 
@@ -120,9 +122,11 @@ class TemplateFunctions extends Base
   function widget_output($position = 'default')
   {
     if (!empty($this->widget_positions[$position])) {
-      $widgets = $this->widget_positions[$position]; //gets all widgets in given position
-      foreach ($widgets as $widget_object) //display each widget
-      {
+      //gets all widgets in given 
+      $widgets = $this->widget_positions[$position];
+
+      //display each widget
+      foreach ($widgets as $widget_object) {
         $widget_name = $widget_object->name;
         $widget_parameters = $widget_object->parameters;
         require_once('widgets/' . $widget_name . '/' . $widget_name . '.php');
