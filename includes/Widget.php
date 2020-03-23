@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Harish Kumar
- * @copyright Find All Together
- * @link http://www.findalltogeher.com
+ * @copyright Flowkl
+ * @link https://www.flowkl.com
  * @version 1.0
  * This is base template controller file. 
  * The purpose of this file is to provide php functions to the template files

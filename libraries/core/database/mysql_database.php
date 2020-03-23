@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Harish Kumar
- * @copyright Find All Together
- * @link http://www.findalltogeher.com
+ * @copyright Flowkl
+ * @link https://www.flowkl.com
  * @version 1.0
  * This is core file which manupulate database instructions
  * It is using PDO connection
@@ -132,5 +132,3 @@ class MysqlDatabase
 		return $row;
 	}
 }
-
- ?>

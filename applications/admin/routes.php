@@ -1,26 +1,30 @@
 <?php
 
 return [
-	'admin' => [
-				'name' => 'admin-home', 
-				'control' =>'admin@index',
-				'allow' => ['GET','POST']],
+  'admin' => [
+    'name' => 'admin-home',
+    'control' => 'admin@index',
+    'allow' => ['GET', 'POST']
+  ],
 
-	'admin/theme' => [
-				'name' => 'theme-settings', 
-				'control' => 'admin@theme_list',
-				'allow' => ['GET']],
+  'admin/theme' => [
+    'name' => 'theme-settings',
+    'control' => 'admin@theme_list',
+    'allow' => ['GET']
+  ],
 
-	'admin/theme/activate' => [
-				'name' => 'theme-activate', 
-				'control' => 'admin@theme_activate',
-				'allow' => ['POST']],
+  'admin/theme/activate' => [
+    'name' => 'theme-activate',
+    'control' => 'admin@theme_activate',
+    'allow' => ['POST']
+  ],
 
-	'admin/theme/preview' => [
-				'name' => 'live-preview', 
-				'control' => 'admin@preview',
-				'allow' => ['GET','POST']],
-	/*
+  'admin/theme/preview' => [
+    'name' => 'live-preview',
+    'control' => 'admin@preview',
+    'allow' => ['GET', 'POST']
+  ],
+  /*
 	 these disable links are port for next versionq
 
 	'admin/widget' => [
@@ -75,23 +79,27 @@ return [
 
 	*/
 
-	'admin/users' => [
-				'name' => 'admin-user-list', 
-				'control' =>'admin@admin_user_list',
-				'allow' => ['GET']],
+  'admin/users' => [
+    'name' => 'admin-user-list',
+    'control' => 'admin@admin_user_list',
+    'allow' => ['GET']
+  ],
 
-	'admin/user/{id}[0-9]+/edit' => [
-				'name' => 'admin-edit-user', 
-				'control' =>'admin@admin_edit_user',
-				'allow' => ['GET']],
+  'admin/user/{id}[0-9]+/edit' => [
+    'name' => 'admin-edit-user',
+    'control' => 'admin@admin_edit_user',
+    'allow' => ['GET']
+  ],
 
-	'admin/user/{id}[0-9]+/update' => [
-				'name' => 'admin-update-user', 
-				'control' =>'admin@admin_update_user',
-				'allow' => ['POST']],
+  'admin/user/{id}[0-9]+/update' => [
+    'name' => 'admin-update-user',
+    'control' => 'admin@admin_update_user',
+    'allow' => ['POST']
+  ],
 
-	'admin/user/{id}[0-9]+/delete' => [
-				'name' => 'admin-delete-user', 
-				'control' =>'admin@admin_delete_user',
-				'allow' => ['POST']],
+  'admin/user/{id}[0-9]+/delete' => [
+    'name' => 'admin-delete-user',
+    'control' => 'admin@admin_delete_user',
+    'allow' => ['POST']
+  ],
 ];

@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Harish Kumar
- * @copyright Find All Together
- * @link http://www.findalltogeher.com
+ * @copyright Flowkl
+ * @link https://www.flowkl.com
  * @version 1.0
  * This file is for authentication purpose
  * It performs task => login, logout, register, reset-password, send verification email
@@ -77,8 +77,9 @@ class AuthApplication extends Application{
 		{
 			$_SESSION['l_error'] = 'Email and password do not match';
 			$this->redirect($this->to_url('login-form'));
-		}
-		$this->redirect($url);
+    }
+    
+		$this->redirect();
 	}
 
 	/**
@@ -314,7 +315,7 @@ class AuthApplication extends Application{
 		$this->check_login();
 		if(!isset($_POST['forget-email']))
 		{
-			$redirect();
+      $this->redirect();
 		}
 
 		$email = $_POST['forget-email'];
@@ -463,4 +464,3 @@ class AuthApplication extends Application{
 		require(TEMPLATE_PATH.'auth/message.php');
 	}
 }
-?>

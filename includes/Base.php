@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Harish Kumar
- * @copyright Find All Together
- * @link http://www.findalltogeher.com
+ * @copyright Flowkl
+ * @link https://www.flowkl.com
  * @version 1.0
  * THis is base file
  * Anything here will be accessible to all of the CMS. 
@@ -81,4 +81,3 @@ abstract class Base{
 	 */
 	abstract function run($arg = null, $param = null);
 }
-?>

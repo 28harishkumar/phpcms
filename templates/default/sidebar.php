@@ -1,3 +1,3 @@
 <div class="">
-	<?php $this->widget_output('sidebar_position');?>
+  <?php $this->widget_output('sidebar_position'); ?>
 </div>

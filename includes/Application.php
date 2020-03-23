@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Harish Kumar
- * @copyright Find All Together
- * @link http://www.findalltogeher.com
+ * @copyright Flowkl
+ * @link https://www.flowkl.com
  * @version 1.0
  * This is base application file which will be extended by 
  * other applications. This provides basic interface.
@@ -58,4 +58,3 @@ abstract class Application extends Base{
 		}
 	}
 }
-?>

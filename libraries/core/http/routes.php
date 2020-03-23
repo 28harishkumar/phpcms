@@ -1,8 +1,8 @@
 <?php
 /**
  * @author Harish Kumar
- * @copyright Find All Together
- * @link http://www.findalltogeher.com
+ * @copyright Flowkl
+ * @link https://www.flowkl.com
  * @version 1.0
  * This class handles the routes comming from browsers
  * These routes are permalink routes
@@ -38,10 +38,10 @@ class Route
 	 */
 	private function get_url()
 	{
-		$trimed = trim(split('\?',$_SERVER['REQUEST_URI'])[0],'/');
-		$url = split('/',$trimed);
+		$trimed = trim(explode('\?',$_SERVER['REQUEST_URI'])[0],'/');
+		$url = explode('/',$trimed);
 
-		$number_of_folders = count(split('/', ROOT))-3;
+		$number_of_folders = count(explode('/', ROOT))-3;
 		for ($i=0; $i < $number_of_folders; $i++) { 
 			array_shift($url);
 		}			
@@ -59,7 +59,7 @@ class Route
 	{
 		$args = array();
 		$arg_pos = array();
-		$regex_array = split('/',$regex);
+		$regex_array = explode('/',$regex);
 		
 		foreach ($regex_array as $pos => $r) 
 		{
@@ -105,7 +105,7 @@ class Route
 				$args = array();
 				if(!empty($filtered_regex['args']))
 				{
-					$url_split = split('/', $url);
+					$url_split = explode('/', $url);
 					$pos = 0;
 					foreach ($filtered_regex['args'] as $arg) {
 						$args[$arg] = $url_split[$filtered_regex['arg_pos'][$pos++]];
@@ -138,7 +138,7 @@ class Route
 	 */
 	private function map_url($regex, $args)
 	{
-		$regex_array = split('/', $regex);
+		$regex_array = explode('/', $regex);
 		foreach ($args as $k => $v) {
 			$pos=0;
 			foreach ($regex_array as $r) {		

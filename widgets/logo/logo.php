@@ -6,4 +6,3 @@ class LogoWidget extends Widget{
 		echo 'My To Do List';
 	}
 }
-?>

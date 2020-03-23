@@ -26,7 +26,7 @@ If you wish to test it out, install xampp and fork the repository to `~\xampp\ht
 tutorials
 ------------
 
-I am creating this cms as well as tutorial for this cms. The tutorials will be uploaded on my blogging webiste [Find All Together](https://www.flowkl.com/tutorial/web-development/learn-building-cms-from-scratch-with-todo-list-demo-in-php-and-mysql/) .
+I am creating this cms as well as tutorial for this cms. The tutorials will be uploaded on my blogging webiste [Flowkl](https://www.flowkl.com/tutorial/web-development/learn-building-cms-from-scratch-with-todo-list-demo-in-php-and-mysql/) .
 
 Demo
 ------------
