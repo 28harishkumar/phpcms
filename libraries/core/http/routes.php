@@ -81,12 +81,12 @@ class Route
   {
     $url = $this->get_url();
     foreach ($this->routes as $route => $url_meta) {
-
       // filter the regex string
       $filtered_regex = $this->filter_regex($route);
+      $url_location = explode('?', $url)[0];
 
       // matich regex
-      preg_match('#^' . $filtered_regex['regex'] . '$#', $url, $matches, PREG_OFFSET_CAPTURE);
+      preg_match('#^' . $filtered_regex['regex'] . '$#', $url_location, $matches, PREG_OFFSET_CAPTURE);
       if (!empty($matches)) {
         if (is_array($url_meta)) {
           $control = $url_meta['control'];
