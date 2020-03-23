@@ -198,7 +198,7 @@ class AuthApplication extends Application{
 	 */
 	private function email_message($title,$link,$message)
 	{
-		$body="<html>
+		return "<html>
 		<body>
 			<h1>".$title."</h1>
 			<p>Click on the link <a href=".$link.">".$message."></a></p>
@@ -207,7 +207,6 @@ class AuthApplication extends Application{
 			<small>It is auto generated message. Don't reply for this message. Only click on the links.</small>
 		</body>
 		</html>";
-		return $body;
 	}
 
 	/**
@@ -224,9 +223,9 @@ class AuthApplication extends Application{
 		$title = 'Confirm email for registeration';
 		$message = 'Confirm Email';
 		$txt = $this->email_message($title,$link,$message);
-		$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
-		$headers .= "From: webmaster@example.com" . "\r\n" .
-		"CC: somebodyelse@example.com";
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		// $headers .= "From: webmaster@example.com";
 
 		mail($email,$subject,$txt,$headers);
 	}
