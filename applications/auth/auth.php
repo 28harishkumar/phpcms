@@ -63,6 +63,7 @@ class AuthApplication extends Application
 
     if (isset($query['id'])) {
       $_SESSION['user_session'] = $query;
+
       if (isset($_SESSION['user_session'])) {
         $this->redirect();
       } else {

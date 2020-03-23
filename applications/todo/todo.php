@@ -110,7 +110,7 @@ class TodoApplication extends Application{
 		$args = array(NULL,$title,$desc,0,$start_date,$end_date,$label,$user_id);
 		$db=$this->get_dbo();			
 		if($db->prepare($sql,$args))
-		{				
+		{
 			$this->redirect($this->to_url('todo-home'));				
 		}
 		else
